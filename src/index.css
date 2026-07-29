@@ -178,7 +178,7 @@ body {
 /* Views */
 .view {
   display: none;
-  padding-bottom: 0.5rem;
+  padding-bottom: 5rem;
 }
 .view.active {
   display: block;
