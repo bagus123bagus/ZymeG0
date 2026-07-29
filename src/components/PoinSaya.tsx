@@ -22,6 +22,10 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
   const { user } = useAuth();
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [tab, setTab] = useState<'reward' | 'riwayat'>('reward');
+  const [selected, setSelected] = useState<Reward | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [done, setDone] = useState<Reward | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -33,21 +37,32 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
     })();
   }, []);
 
-  async function handleRedeem(r: Reward) {
-    if (!user) return;
-    if (totalPoin < r.poin_dibutuhkan) return;
-    const { data, error } = await supabase
+  async function handleRedeem() {
+    if (!user || !selected) return;
+    if (totalPoin < selected.poin_dibutuhkan) {
+      setError('Poin Anda tidak cukup.');
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    const { data, error: insErr } = await supabase
       .from('redemptions')
       .insert({
         user_id: user.id,
-        reward_id: r.id,
-        nama_reward: r.nama,
-        poin_digunakan: r.poin_dibutuhkan,
+        reward_id: selected.id,
+        nama_reward: selected.nama,
+        poin_digunakan: selected.poin_dibutuhkan,
       })
       .select('id, user_id, reward_id, nama_reward, poin_digunakan, status, created_at')
       .maybeSingle();
-    if (error || !data) return;
+    setSubmitting(false);
+    if (insErr || !data) {
+      setError(insErr?.message || 'Gagal menukar poin.');
+      return;
+    }
+    setDone(selected);
     onRedeemed(data as Redemption);
+    setSelected(null);
   }
 
   const totalKg = deposits.reduce((s, d) => s + Number(d.berat_kg), 0);
@@ -66,7 +81,9 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
       </div>
 
       <div className="konversi-card">
-        <span className="label">💰 Konversi Harga</span>
+        <span className="label">
+          <i className="fa-solid fa-coins" style={{ marginRight: '0.3rem' }} /> Konversi Harga
+        </span>
         <span className="value">{totalKg.toFixed(1).replace('.', ',')} kg = Rp{(totalKg * 500).toLocaleString('id-ID')}</span>
       </div>
 
@@ -87,24 +104,27 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
 
       {tab === 'reward' ? (
         <div className="reward-grid stagger">
-          {rewards.map((r, i) => (
-            <div className="reward-card" key={r.id} style={{ animationDelay: `${i * 0.05}s` }}>
-              <div className="reward-icon">
-                <i className={`fa-solid ${rewardIcons[r.nama] || 'fa-gift'}`} />
+          {rewards.map((r, i) => {
+            const can = totalPoin >= r.poin_dibutuhkan;
+            return (
+              <div className="reward-card" key={r.id} style={{ animationDelay: `${i * 0.05}s` }}>
+                <div className="reward-icon">
+                  <i className={`fa-solid ${rewardIcons[r.nama] || 'fa-gift'}`} />
+                </div>
+                <h4>{r.nama}</h4>
+                <div className="cost">
+                  <i className="fa-solid fa-star" style={{ fontSize: '0.7rem' }} /> {r.poin_dibutuhkan} poin
+                </div>
+                <button
+                  className="redeem-btn"
+                  disabled={!can}
+                  onClick={() => { setSelected(r); setError(null); }}
+                >
+                  {can ? 'Tukar' : 'Poin Kurang'}
+                </button>
               </div>
-              <h4>{r.nama}</h4>
-              <div className="cost">
-                <i className="fa-solid fa-star" style={{ fontSize: '0.7rem' }} /> {r.poin_dibutuhkan} poin
-              </div>
-              <button
-                className="redeem-btn"
-                disabled={totalPoin < r.poin_dibutuhkan}
-                onClick={() => handleRedeem(r)}
-              >
-                Tukar
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className="poin-history-list stagger">
@@ -144,6 +164,63 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
               ))}
             </>
           )}
+        </div>
+      )}
+
+      {/* Modal konfirmasi */}
+      {selected && (
+        <div className="modal-overlay active" onClick={() => setSelected(null)}>
+          <div className="modal-sheet" style={{ position: 'relative' }} onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setSelected(null)}>
+              <i className="fa-solid fa-xmark" />
+            </button>
+            <div className="sheet-handle" />
+            <div style={{ textAlign: 'center' }}>
+              <div className="reward-icon" style={{ margin: '0 auto 0.8rem', width: 56, height: 56 }}>
+                <i className={`fa-solid ${rewardIcons[selected.nama] || 'fa-gift'}`} />
+              </div>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.3rem' }}>Tukar {selected.nama}?</h3>
+              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.8rem' }}>{selected.deskripsi}</p>
+              <div className="cost" style={{ justifyContent: 'center', marginBottom: '1.2rem' }}>
+                <i className="fa-solid fa-star" style={{ fontSize: '0.75rem' }} /> {selected.poin_dibutuhkan} poin
+              </div>
+              {error && <div className="modal-error">{error}</div>}
+              <div style={{ display: 'flex', gap: '0.6rem' }}>
+                <button className="btn-submit" style={{ background: 'var(--border)', color: 'var(--text-secondary)' }} onClick={() => setSelected(null)}>
+                  <span className="btn-label">Batal</span>
+                </button>
+                <button className={`btn-submit${submitting ? ' loading' : ''}`} onClick={handleRedeem} disabled={submitting}>
+                  <span className="btn-label">{submitting ? 'Memproses...' : 'Konfirmasi'}</span>
+                  <span className="spin" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal sukses */}
+      {done && (
+        <div className="modal-overlay active" onClick={() => setDone(null)}>
+          <div className="modal-sheet" style={{ position: 'relative' }} onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setDone(null)}>
+              <i className="fa-solid fa-xmark" />
+            </button>
+            <div className="sheet-handle" />
+            <div style={{ textAlign: 'center', paddingTop: '0.5rem' }}>
+              <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--accent-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
+                <i className="fa-solid fa-circle-check" style={{ fontSize: '2rem', color: 'var(--accent)' }} />
+              </div>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.3rem' }}>Penukaran Berhasil!</h3>
+              <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '1.2rem' }}>
+                {done.nama} sedang diproses. Tim ZymeGo akan menghubungi Anda.
+              </p>
+              <button className="btn-submit" onClick={() => setDone(null)}>
+                <span className="btn-label">Selesai</span>
+                <span className="spin" />
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </section>

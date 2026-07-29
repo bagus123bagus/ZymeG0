@@ -41,7 +41,8 @@ const articles = [
     category: 'layanan',
     thumb: 'thumb-5',
     icon: 'fa-handshake',
-    body: 'ZymeGo menyediakan layanan konsultasi untuk membantu Anda mengelola limbah organik dengan lebih baik. Hubungi kami untuk informasi lebih lanjut tentang pengolahan eco-enzyme yang efektif.',
+    body: 'ZymeGo menyediakan layanan konsultasi untuk membantu Anda mengelola limbah organik dengan lebih baik. Apakah Anda ingin belajar membuat eco-enzyme, mengatur sistem pengelolaan limbah di komunitas, atau berkonsultasi tentang limbah organik? Tim ZymeGo siap membantu!',
+    hasForm: true,
   },
 ];
 
@@ -76,7 +77,7 @@ export default function Edukasi() {
           </div>
         ))}
       </div>
-      <div className="section article-grid stagger" style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+      <div className="section article-grid stagger">
         {filtered.map((a, i) => (
           <div
             className="article-card"
@@ -113,6 +114,19 @@ export default function Edukasi() {
             </div>
             <h2 style={{ fontSize: '1.15rem', fontWeight: 800, marginBottom: '0.9rem' }}>{openArticle.title}</h2>
             <p style={{ fontSize: '0.86rem', lineHeight: 1.65, color: 'var(--text-secondary)' }}>{openArticle.body}</p>
+            {openArticle.hasForm && (
+              <a
+                href="https://forms.gle/GNtKPVMq25qDZJUJA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-submit"
+                style={{ marginTop: '1.2rem', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}
+              >
+                <i className="fa-solid fa-paper-plane" />
+                <span className="btn-label">Buka Form Konsultasi</span>
+                <span className="spin" />
+              </a>
+            )}
           </div>
         </div>
       )}
