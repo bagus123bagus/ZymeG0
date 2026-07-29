@@ -30,7 +30,7 @@ export default function Riwayat({ deposits, setPage }: Props) {
   ];
 
   return (
-    <section className="view active" data-view="riwayat">
+    <section className="view active" data-view="riwayat" style={{ paddingBottom: '5rem' }}>
       <div className="page-header">
         <div className="header-accent" />
         <h2>Riwayat Setor</h2>

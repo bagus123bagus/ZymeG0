@@ -47,7 +47,7 @@ export default function Profil({ totalPoin, totalKg, totalSetor, onSignOut, onTo
   }
 
   return (
-    <section className="view active" data-view="profil">
+    <section className="view active" data-view="profil" style={{ paddingBottom: '5rem' }}>
       <div className="page-header">
         <div className="header-accent" />
         <h2>Profil</h2>
