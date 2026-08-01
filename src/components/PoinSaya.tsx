@@ -2,21 +2,26 @@ import { useEffect, useState } from 'react';
 import { supabase, type Reward, type Redemption } from '../lib/supabase';
 import { useAuth } from '../lib/auth';
 
+// Map reward names to their image files (place files in /public/)
+const rewardImages: Record<string, string> = {
+  'Sabun Cuci Piring': '/sabuncucipiring.png',
+  'Cairan Pel Lantai': '/cairanpellantai.png',
+  'Tumbler ZymeGo': '/tumblerzymego.png',
+};
+
+// Fallback icon if image not found
+const rewardIcons: Record<string, string> = {
+  'Sabun Cuci Piring': 'fa-hand-sparkles',
+  'Cairan Pel Lantai': 'fa-bucket',
+  'Tumbler ZymeGo': 'fa-bottle-water',
+};
+
 interface Props {
   totalPoin: number;
   deposits: any[];
   redemptions: any[];
   onRedeemed: (r: Redemption) => void;
 }
-
-const rewardIcons: Record<string, string> = {
-  'Sabun Cuci Piring': 'fa-hand-sparkles',
-  'Pupuk Organik': 'fa-seedling',
-  'Cairan Pel Lantai': 'fa-bucket',
-  'Tumbler ZymeGo': 'fa-bottle-water',
-  'Voucher Belanja Rp5.000': 'fa-ticket',
-  'Voucher Produk ZymeGo': 'fa-gift',
-};
 
 export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed }: Props) {
   const { user } = useAuth();
@@ -67,6 +72,22 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
 
   const totalKg = deposits.reduce((s, d) => s + Number(d.berat_kg), 0);
 
+  function RewardImg({ nama, size = 56 }: { nama: string; size?: number }) {
+    const [imgErr, setImgErr] = useState(false);
+    const src = rewardImages[nama];
+    if (src && !imgErr) {
+      return (
+        <img
+          src={src}
+          alt={nama}
+          onError={() => setImgErr(true)}
+          style={{ width: size, height: size, objectFit: 'contain', borderRadius: 8 }}
+        />
+      );
+    }
+    return <i className={`fa-solid ${rewardIcons[nama] || 'fa-gift'}`} />;
+  }
+
   return (
     <section className="view active" data-view="poin">
       <div className="page-header">
@@ -88,16 +109,10 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
       </div>
 
       <div className="tab-switch">
-        <button
-          className={tab === 'reward' ? 'active' : ''}
-          onClick={() => setTab('reward')}
-        >
+        <button className={tab === 'reward' ? 'active' : ''} onClick={() => setTab('reward')}>
           Tukar Poin
         </button>
-        <button
-          className={tab === 'riwayat' ? 'active' : ''}
-          onClick={() => setTab('riwayat')}
-        >
+        <button className={tab === 'riwayat' ? 'active' : ''} onClick={() => setTab('riwayat')}>
           Riwayat Poin
         </button>
       </div>
@@ -109,7 +124,7 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
             return (
               <div className="reward-card" key={r.id} style={{ animationDelay: `${i * 0.05}s` }}>
                 <div className="reward-icon">
-                  <i className={`fa-solid ${rewardIcons[r.nama] || 'fa-gift'}`} />
+                  <RewardImg nama={r.nama} />
                 </div>
                 <h4>{r.nama}</h4>
                 <div className="cost">
@@ -140,9 +155,7 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
             <>
               {deposits.map((d, i) => (
                 <div className="poin-history-item" key={`d-${d.id}`} style={{ animationDelay: `${i * 0.05}s` }}>
-                  <div className="ph-icon ph-plus">
-                    <i className="fa-solid fa-plus" />
-                  </div>
+                  <div className="ph-icon ph-plus"><i className="fa-solid fa-plus" /></div>
                   <div className="ph-info">
                     <h5>Setor {d.jenis_limbah}</h5>
                     <p>{new Date(d.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}</p>
@@ -152,9 +165,7 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
               ))}
               {redemptions.map((r, i) => (
                 <div className="poin-history-item" key={`r-${r.id}`} style={{ animationDelay: `${i * 0.05}s` }}>
-                  <div className="ph-icon ph-minus">
-                    <i className="fa-solid fa-minus" />
-                  </div>
+                  <div className="ph-icon ph-minus"><i className="fa-solid fa-minus" /></div>
                   <div className="ph-info">
                     <h5>Tukar {r.nama_reward}</h5>
                     <p>{new Date(r.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}</p>
@@ -176,8 +187,8 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
             </button>
             <div className="sheet-handle" />
             <div style={{ textAlign: 'center' }}>
-              <div className="reward-icon" style={{ margin: '0 auto 0.8rem', width: 56, height: 56 }}>
-                <i className={`fa-solid ${rewardIcons[selected.nama] || 'fa-gift'}`} />
+              <div className="reward-icon" style={{ margin: '0 auto 0.8rem', width: 72, height: 72 }}>
+                <RewardImg nama={selected.nama} size={64} />
               </div>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.3rem' }}>Tukar {selected.nama}?</h3>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.8rem' }}>{selected.deskripsi}</p>

@@ -86,7 +86,7 @@ export default function Beranda({ setPage, totalPoin, totalKg, userName, userEma
           <div
             className="menu-item"
             style={{ animationDelay: '0.25s' }}
-            onClick={() => window.open('https://forms.gle/zymego-kuesioner', '_blank')}
+            onClick={() => window.open('https://forms.gle/7vCoTkTkw6sqrSFK9', '_blank')}
           >
             <div className="menu-icon mi-kuesioner">
               <i className="fa-solid fa-clipboard-list" />

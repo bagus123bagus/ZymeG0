@@ -8,7 +8,7 @@ interface AuthState {
   profile: Profile | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
-  signUp: (email: string, password: string, fullName: string) => Promise<{ error: string | null }>;
+  signUp: (email: string, password: string, fullName: string, phone?: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -68,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: error?.message ?? null };
   }
 
-  async function signUp(email: string, password: string, fullName: string) {
+  async function signUp(email: string, password: string, fullName: string, phone = '') {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -79,6 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await supabase.from('profiles').upsert({
         id: data.user.id,
         full_name: fullName,
+        phone,
       });
     }
     return { error: null };

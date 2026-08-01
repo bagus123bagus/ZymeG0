@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logoImg from './image.png';
 
 export type Page = 'beranda' | 'riwayat' | 'setor' | 'poin' | 'profil' | 'edukasi' | 'monitoring';
 
@@ -22,16 +23,7 @@ export default function Navbar({ page, setPage, notifCount, onBellClick }: Props
     <>
       <header className="topbar">
         <div className="brand-mini" onClick={() => setPage('beranda')}>
-          <svg className="header-logo-icon" viewBox="0 0 100 100">
-            <path d="M50 5 C50 5 20 40 20 62 C20 80 33 92 50 92 C67 92 80 80 80 62 C80 40 50 5 50 5Z" fill="#2d6a1f" />
-            <circle cx="50" cy="65" r="26" fill="#4a9a2a" />
-            <circle cx="55" cy="68" r="12" fill="#f4a020" />
-            <circle cx="40" cy="70" r="8" fill="#6ab52a" />
-            <path d="M50 20 Q60 30 55 42 Q50 30 42 35 Q46 22 50 20Z" fill="#8acc40" />
-          </svg>
-          <div className="header-logo">
-            Zyme<span>Go</span>
-          </div>
+          <img src={logoImg} alt="ZymeGo" className="header-logo-icon" style={{ borderRadius: 0, background: 'transparent', objectFit: 'contain' }} />
         </div>
         <div className="topbar-actions">
           <button className={`icon-btn${bellRinging ? ' ringing' : ''}`} onClick={handleBell} aria-label="Notifikasi">
@@ -83,5 +75,3 @@ export default function Navbar({ page, setPage, notifCount, onBellClick }: Props
     </>
   );
 }
-
-

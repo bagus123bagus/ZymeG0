@@ -3,14 +3,14 @@ import { useState } from 'react';
 const articles = [
   {
     title: 'Apa Itu Eco-Enzyme?',
-    category: 'apa-itu',
+    category: 'panduan',
     thumb: 'thumb-1',
     icon: 'fa-bowl-food',
     body: 'Eco-enzyme adalah cairan hasil fermentasi limbah organik seperti kulit buah dan sayur dengan gula dan air. Cairan ini kaya manfaat, mulai dari pembersih alami hingga pupuk tanaman, dan menjadi salah satu cara sederhana mengurangi sampah organik rumah tangga.',
   },
   {
     title: 'Manfaat Eco-Enzyme untuk Kehidupan',
-    category: 'manfaat',
+    category: 'panduan',
     thumb: 'thumb-3',
     icon: 'fa-seedling',
     body: 'Eco-enzyme memiliki banyak manfaat, antara lain: sebagai pupuk cair alami untuk tanaman, pembersih rumah ramah lingkungan, pengurai limbah organik, mengurangi bau, dan membantu menjaga keseimbangan ekosistem.',
@@ -48,8 +48,7 @@ const articles = [
 
 const chips = [
   { id: 'semua', label: 'Semua' },
-  { id: 'apa-itu', label: 'Apa Itu' },
-  { id: 'manfaat', label: 'Manfaat' },
+  { id: 'panduan', label: 'Panduan' },
   { id: 'tips', label: 'Tips' },
   { id: 'layanan', label: 'Layanan' },
 ];
@@ -116,7 +115,7 @@ export default function Edukasi() {
             <p style={{ fontSize: '0.86rem', lineHeight: 1.65, color: 'var(--text-secondary)' }}>{openArticle.body}</p>
             {openArticle.hasForm && (
               <a
-                href="https://forms.gle/GNtKPVMq25qDZJUJA"
+                href="https://forms.gle/7vCoTkTkw6sqrSFK9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-submit"

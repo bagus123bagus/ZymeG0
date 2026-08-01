@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useAuth } from '../lib/auth';
+import logoImg from './image.png';
 
 type Mode = 'login' | 'daftar';
 
@@ -9,6 +10,7 @@ export default function AuthScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -29,7 +31,7 @@ export default function AuthScreen() {
         setSubmitting(false);
         return;
       }
-      const { error: err } = await signUp(email.trim(), password, fullName.trim());
+      const { error: err } = await signUp(email.trim(), password, fullName.trim(), phone.trim());
       setSubmitting(false);
       if (err) setError(err);
       else setSuccessMsg('Akun berhasil dibuat! Silakan login.');
@@ -57,21 +59,7 @@ export default function AuthScreen() {
 
       {/* Logo */}
       <div className="login-logo-wrap">
-        <svg className="login-logo" viewBox="0 0 100 100">
-          <path d="M50 5 C50 5 20 40 20 62 C20 80 33 92 50 92 C67 92 80 80 80 62 C80 40 50 5 50 5Z" fill="#2d6a1f" />
-          <circle cx="50" cy="65" r="26" fill="#4a9a2a" />
-          <circle cx="55" cy="68" r="12" fill="#f4a020" />
-          <circle cx="55" cy="68" r="8" fill="#f4a020" stroke="#e8890a" strokeWidth="1" />
-          <line x1="55" y1="60" x2="55" y2="76" stroke="#e8890a" strokeWidth="1" />
-          <line x1="47" y1="68" x2="63" y2="68" stroke="#e8890a" strokeWidth="1" />
-          <circle cx="40" cy="70" r="8" fill="#6ab52a" />
-          <path d="M50 20 Q60 30 55 42 Q50 30 42 35 Q46 22 50 20Z" fill="#8acc40" />
-          <circle cx="68" cy="48" r="2" fill="white" opacity="0.9" />
-          <circle cx="32" cy="55" r="1.5" fill="white" opacity="0.7" />
-        </svg>
-        <div className="login-brand">
-          Zyme<span>Go</span>
-        </div>
+        <img src={logoImg} alt="ZymeGo" className="login-logo" style={{ borderRadius: 0, background: 'transparent', objectFit: 'contain' }} />
         <div className="login-tagline">Ecoenzyme Center</div>
         <div className="login-pill">KUMPULKAN • OLAH • SELAMATKAN</div>
       </div>
@@ -95,29 +83,43 @@ export default function AuthScreen() {
 
         <form className="login-form" onSubmit={handleSubmit}>
           {mode === 'daftar' && (
-            <div className="login-field">
-              <label>Nama Lengkap</label>
-              <div className="login-input-wrap">
-                <i className="fa-solid fa-user" />
-                <input
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Masukkan nama lengkap"
-                />
+            <>
+              <div className="login-field">
+                <label>Nama Lengkap</label>
+                <div className="login-input-wrap">
+                  <i className="fa-solid fa-user" />
+                  <input
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Masukkan nama lengkap"
+                  />
+                </div>
               </div>
-            </div>
+              <div className="login-field">
+                <label>Nomor Telepon</label>
+                <div className="login-input-wrap">
+                  <i className="fa-solid fa-phone" />
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Contoh: 08123456789"
+                  />
+                </div>
+              </div>
+            </>
           )}
 
           <div className="login-field">
-            <label>Email / Nomor HP</label>
+            <label>Email</label>
             <div className="login-input-wrap">
               <i className="fa-solid fa-envelope" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Masukkan email atau nomor HP"
+                placeholder="Masukkan alamat email"
                 required
               />
             </div>
