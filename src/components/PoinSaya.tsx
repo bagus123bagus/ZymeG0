@@ -4,9 +4,9 @@ import { useAuth } from '../lib/auth';
 
 // Map reward names to their image files (place files in /public/)
 const rewardImages: Record<string, string> = {
-  'Sabun Cuci Piring': '/SABUNCUCIPIRINGZYMEGO.png',
-  'Cairan Pel Lantai': '/PEMBERSIHLANTAIZYMEGO.png',
-  'Pupuk Cair Organik': '/PUPUKZYMEGO.png',
+  'Sabun Cuci Piring': 'https://images.pexels.com/photos/10574054/pexels-photo-10574054.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
+  'Cairan Pel Lantai': 'https://images.pexels.com/photos/5217898/pexels-photo-5217898.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
+  'Pupuk Cair Organik': 'https://images.pexels.com/photos/7768447/pexels-photo-7768447.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
 };
 
 const rewardIcons: Record<string, string> = {

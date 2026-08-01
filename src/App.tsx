@@ -11,6 +11,7 @@ import Edukasi from './components/Edukasi';
 import Monitoring from './components/Monitoring';
 import NotifPanel, { type Notif } from './components/NotifPanel';
 import Toasts, { useToasts } from './components/Toasts';
+import logoImg from './components/image.png';
 
 import { supabase } from './lib/supabase';
 
@@ -90,7 +91,7 @@ function Shell() {
       <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg)' }}>
         <div style={{ textAlign: 'center' }}>
           <img
-            src="/ZYMEGOLOGO.png"
+            src={logoImg}
             alt="ZymeGo"
             style={{ width: 160, height: 'auto', margin: '0 auto', animation: 'pop 1s ease infinite', display: 'block', objectFit: 'contain' }}
           />

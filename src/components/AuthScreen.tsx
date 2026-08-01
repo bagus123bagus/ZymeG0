@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useAuth } from '../lib/auth';
-const logoImg = '/ZYMEGOLOGO.png';
+import logoImg from './image.png';
 
 type Mode = 'login' | 'daftar';
 
