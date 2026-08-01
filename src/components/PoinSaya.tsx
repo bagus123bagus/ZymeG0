@@ -4,16 +4,15 @@ import { useAuth } from '../lib/auth';
 
 // Map reward names to their image files (place files in /public/)
 const rewardImages: Record<string, string> = {
-  'Sabun Cuci Piring': '/sabuncucipiring.png',
-  'Cairan Pel Lantai': '/cairanpellantai.png',
-  'Tumbler ZymeGo': '/tumblerzymego.png',
+  'Sabun Cuci Piring': '/SABUNCUCIPIRINGZYMEGO.png',
+  'Cairan Pel Lantai': '/PEMBERSIHLANTAIZYMEGO.png',
+  'Pupuk Cair Organik': '/PUPUKZYMEGO.png',
 };
 
-// Fallback icon if image not found
 const rewardIcons: Record<string, string> = {
   'Sabun Cuci Piring': 'fa-hand-sparkles',
   'Cairan Pel Lantai': 'fa-bucket',
-  'Tumbler ZymeGo': 'fa-bottle-water',
+  'Pupuk Cair Organik': 'fa-seedling',
 };
 
 interface Props {

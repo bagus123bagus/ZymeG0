@@ -11,7 +11,7 @@ import Edukasi from './components/Edukasi';
 import Monitoring from './components/Monitoring';
 import NotifPanel, { type Notif } from './components/NotifPanel';
 import Toasts, { useToasts } from './components/Toasts';
-import { Leaf } from 'lucide-react';
+
 import { supabase } from './lib/supabase';
 
 function Shell() {
@@ -89,22 +89,11 @@ function Shell() {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg)' }}>
         <div style={{ textAlign: 'center' }}>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 16,
-              background: 'linear-gradient(145deg, #4a9a2a, #2d6a1f)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto',
-              animation: 'pop 1s ease infinite',
-            }}
-          >
-            <Leaf style={{ width: 32, height: 32, color: '#fff' }} />
-          </div>
-          <p style={{ marginTop: 12, color: 'var(--accent-dark)', fontWeight: 800 }}>ZymeGo</p>
+          <img
+            src="/ZYMEGOLOGO.png"
+            alt="ZymeGo"
+            style={{ width: 160, height: 'auto', margin: '0 auto', animation: 'pop 1s ease infinite', display: 'block', objectFit: 'contain' }}
+          />
         </div>
       </div>
     );

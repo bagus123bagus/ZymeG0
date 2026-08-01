@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import logoImg from './image.png';
+const logoImg = '/ZYMEGOLOGO.png';
 
 export type Page = 'beranda' | 'riwayat' | 'setor' | 'poin' | 'profil' | 'edukasi' | 'monitoring';
 
