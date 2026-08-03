@@ -46,7 +46,7 @@ function Shell() {
     const redRows = red || [];
     setDeposits(depRows);
     setRedemptions(redRows);
-    const earned = depRows.reduce((s: number, d: any) => s + (d.poin || 0), 0);
+    const earned = depRows.filter((d: any) => d.status === 'diterima').reduce((s: number, d: any) => s + (d.poin || 0), 0);
     const used = redRows.reduce((s: number, r: any) => s + (r.poin_digunakan || 0), 0);
     setTotalPoin(Math.max(0, earned - used));
     setTotalKg(depRows.reduce((s: number, d: any) => s + Number(d.berat_kg), 0));
@@ -73,7 +73,7 @@ function Shell() {
     setRefreshKey((k) => k + 1);
     addNotif({
       icon: 'fa-star',
-      text: `Kamu mendapatkan ${d.poin} poin dari setor limbah!`,
+      text: `Setoran ${d.berat_kg}kg ${d.jenis_limbah} berhasil dikirim. Menunggu konfirmasi admin.`,
       time: 'Baru saja',
     });
   }
@@ -122,13 +122,14 @@ function Shell() {
             totalKg={totalKg}
             userName={profile?.full_name || 'Pengguna'}
             userEmail={user.email || ''}
+            pendingCount={deposits.filter((d: any) => d.status === 'pending').length}
           />
         )}
         {page === 'setor' && (
           <SetorLimbah
             onSaved={(d) => {
               handleDepositSaved(d);
-              toast('Setor berhasil! Poin bertambah 🌱', 'fa-circle-check');
+              toast('Setor berhasil! Menunggu konfirmasi admin.', 'fa-circle-check');
             }}
           />
         )}

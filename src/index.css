@@ -1046,8 +1046,13 @@ textarea.form-textarea:focus {
   background: #fef3c7;
   color: #92400e;
 }
+.history-status.ditolak {
+  background: #fee2e2;
+  color: #991b1b;
+}
 [data-theme='dark'] .history-status.selesai { background: #1f3312; color: #a3d465; }
 [data-theme='dark'] .history-status.diproses { background: #3a2e0e; color: #fbbf24; }
+[data-theme='dark'] .history-status.ditolak { background: #3a1c18; color: #e8877e; }
 .history-info {
   flex: 1;
   min-width: 0;
@@ -2288,12 +2293,51 @@ textarea.form-textarea:focus {
 .summary-card .sc-info h3 { font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1; }
 .summary-card .sc-info p { font-size: 0.78rem; color: rgba(255, 255, 255, 0.8); margin-top: 0.2rem; }
 .summary-card .sc-badge {
+
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
   font-size: 0.72rem;
   font-weight: 700;
   padding: 0.35rem 0.7rem;
   border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.pending-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 1px solid #f59e0b;
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+  margin: 0 1.3rem 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.pending-banner:active { transform: scale(0.97); }
+.pending-banner > i:first-child {
+  font-size: 1.1rem;
+  color: #d97706;
+  flex-shrink: 0;
+}
+.pending-banner .pending-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.pending-banner .pending-text strong {
+  font-size: 0.82rem;
+  color: #92400e;
+  font-weight: 700;
+}
+.pending-banner .pending-text span {
+  font-size: 0.72rem;
+  color: #b45309;
+}
+.pending-banner > i:last-child {
+  font-size: 0.8rem;
+  color: #b45309;
   flex-shrink: 0;
 }
 

@@ -6,6 +6,7 @@ interface Props {
   totalKg: number;
   userName: string;
   userEmail: string;
+  pendingCount: number;
 }
 
 const menuItems: { id: Page; label: string; icon: string; cls: string }[] = [
@@ -15,7 +16,7 @@ const menuItems: { id: Page; label: string; icon: string; cls: string }[] = [
   { id: 'monitoring', label: 'Monitoring', icon: 'fa-chart-simple', cls: 'mi-monitoring' },
 ];
 
-export default function Beranda({ setPage, totalPoin, totalKg, userName, userEmail }: Props) {
+export default function Beranda({ setPage, totalPoin, totalKg, userName, userEmail, pendingCount }: Props) {
   return (
     <section className="view active" data-view="beranda">
       {/* Greeting */}
@@ -39,6 +40,17 @@ export default function Beranda({ setPage, totalPoin, totalKg, userName, userEma
         <p>Selamat datang di ZymeGo!</p>
         {userEmail && <div className="user-email">{userEmail}</div>}
       </div>
+
+      {pendingCount > 0 && (
+        <div className="pending-banner" onClick={() => setPage('riwayat')}>
+          <i className="fa-solid fa-clock" />
+          <div className="pending-text">
+            <strong>{pendingCount} setoran menunggu konfirmasi admin</strong>
+            <span>Klik untuk melihat detail</span>
+          </div>
+          <i className="fa-solid fa-chevron-right" />
+        </div>
+      )}
 
       {/* Stats card */}
       <div className="stats-card">

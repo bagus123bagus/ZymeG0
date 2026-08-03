@@ -98,9 +98,9 @@ export default function Riwayat({ deposits, setPage }: Props) {
                 {d.keterangan && (
                   <p style={{ fontSize: '0.7rem', color: 'var(--muted)', marginTop: '0.2rem' }}>{d.keterangan}</p>
                 )}
-                <span className={`history-status ${d.status === 'Selesai' ? 'selesai' : 'diproses'}`}>
-                  <i className={`fa-solid ${d.status === 'Selesai' ? 'fa-check' : 'fa-clock'}`} style={{ fontSize: '0.55rem' }} />
-                  {d.status || 'Diproses'}
+                <span className={`history-status ${d.status === 'diterima' ? 'selesai' : d.status === 'ditolak' ? 'ditolak' : 'diproses'}`}>
+                  <i className={`fa-solid ${d.status === 'diterima' ? 'fa-check' : d.status === 'ditolak' ? 'fa-xmark' : 'fa-clock'}`} style={{ fontSize: '0.55rem' }} />
+                  {d.status === 'diterima' ? 'Diterima' : d.status === 'ditolak' ? 'Ditolak' : 'Menunggu Konfirmasi'}
                 </span>
               </div>
               <div className="history-right">
