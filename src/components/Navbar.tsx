@@ -24,6 +24,7 @@ export default function Navbar({ page, setPage, notifCount, onBellClick }: Props
       <header className="topbar">
         <div className="brand-mini" onClick={() => setPage('beranda')}>
           <img src={logoImg} alt="ZymeGo" className="header-logo-icon" style={{ borderRadius: 0, background: 'transparent', objectFit: 'contain' }} />
+          <span className="header-logo-text">ZymeGo</span>
         </div>
         <div className="topbar-actions">
           <button className={`icon-btn${bellRinging ? ' ringing' : ''}`} onClick={handleBell} aria-label="Notifikasi">

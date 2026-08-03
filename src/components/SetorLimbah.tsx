@@ -52,7 +52,10 @@ export default function SetorLimbah({ onSaved }: Props) {
     setKeterangan('');
     setCatatan('');
     setBerat('1.0');
+    setSuccess('Setoran berhasil! Menunggu konfirmasi admin.');
   }
+
+  const [success, setSuccess] = useState<string | null>(null);
 
   return (
     <section className="view active" data-view="setor">
@@ -179,6 +182,11 @@ export default function SetorLimbah({ onSaved }: Props) {
         </div>
 
         {error && <div className="login-error" style={{ marginBottom: '1.4rem' }}>{error}</div>}
+        {success && (
+          <div className="login-success" style={{ marginBottom: '1.4rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <i className="fa-solid fa-circle-check" /> {success}
+          </div>
+        )}
 
         <button
           className={`btn-submit${submitting ? ' loading' : ''}`}

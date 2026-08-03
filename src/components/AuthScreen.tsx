@@ -33,8 +33,12 @@ export default function AuthScreen() {
       }
       const { error: err } = await signUp(email.trim(), password, fullName.trim(), phone.trim());
       setSubmitting(false);
-      if (err) setError(err);
-      else setSuccessMsg('Akun berhasil dibuat! Silakan login.');
+      if (err) {
+        setError(err);
+      } else {
+        setSuccessMsg('Akun berhasil dibuat! Cek email kamu untuk verifikasi OTP, lalu login.');
+        setMode('login');
+      }
     }
   }
 
@@ -141,6 +145,13 @@ export default function AuthScreen() {
               </button>
             </div>
           </div>
+
+          {mode === 'daftar' && (
+            <div className="login-info-box">
+              <i className="fa-solid fa-circle-info" />
+              <span>Kami akan mengirim kode verifikasi ke email kamu. Pastikan email yang dimasukkan aktif.</span>
+            </div>
+          )}
 
           {mode === 'login' && (
             <button type="button" className="login-forgot">

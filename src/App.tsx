@@ -11,12 +11,13 @@ import Edukasi from './components/Edukasi';
 import Monitoring from './components/Monitoring';
 import NotifPanel, { type Notif } from './components/NotifPanel';
 import Toasts, { useToasts } from './components/Toasts';
+import AdminPanel from './components/AdminPanel';
 import logoImg from './components/image.png';
 
 import { supabase } from './lib/supabase';
 
 function Shell() {
-  const { user, profile, loading } = useAuth();
+  const { user, profile, loading, isAdmin } = useAuth();
   const [page, setPage] = useState<Page>('beranda');
   const [totalPoin, setTotalPoin] = useState(0);
   const [totalKg, setTotalKg] = useState(0);
@@ -101,6 +102,8 @@ function Shell() {
   }
 
   if (!user) return <AuthScreen />;
+
+  if (isAdmin) return <AdminPanel />;
 
   return (
     <div className="phone">
