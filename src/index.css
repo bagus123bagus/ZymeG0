@@ -232,15 +232,19 @@ body {
 /* Greeting */
 .greeting-wrap {
   position: relative;
-  padding: 0.9rem 1.3rem 1.3rem;
+  padding: 1.1rem 1.3rem 1.5rem;
   overflow: hidden;
+  background: linear-gradient(135deg, rgba(255,255,255,0.32), rgba(230,244,214,0.18));
+  border-radius: 0 0 28px 28px;
 }
 .leaf-deco {
   position: absolute;
-  top: -0.6rem;
-  right: -1.2rem;
-  width: 150px;
-  opacity: 0.9;
+  top: -0.5rem;
+  right: -0.7rem;
+  width: 145px;
+  opacity: 0.82;
+  filter: drop-shadow(0 8px 10px rgba(74, 154, 42, 0.12));
+  animation: leafSway 5s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
 }
@@ -257,6 +261,10 @@ body {
   display: inline-block;
   animation: wave 1.8s ease-in-out infinite;
   transform-origin: 70% 70%;
+}
+@keyframes leafSway {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(-3deg) translateY(3px); }
 }
 @keyframes wave {
   0%, 100% { transform: rotate(0deg); }
@@ -467,9 +475,11 @@ body {
 /* Promo banner */
 .promo-banner {
   margin: 0 1.3rem 1.6rem;
-  background: var(--accent-light);
-  border-radius: var(--radius-lg);
-  padding: 1.2rem;
+  background: linear-gradient(135deg, #eef9e6 0%, #d8efc6 100%);
+  border-radius: 24px;
+  padding: 1.25rem;
+  box-shadow: 0 16px 28px -18px rgba(45, 106, 31, 0.5);
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -479,6 +489,16 @@ body {
 }
 .promo-banner:active {
   transform: scale(0.98);
+}
+.promo-banner::before {
+  content: '';
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  right: 48px;
+  top: -48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.28);
 }
 .promo-banner img {
   width: 38%;
@@ -2043,7 +2063,7 @@ textarea.form-textarea:focus {
 /* Login page */
 .login-page {
   min-height: 100vh;
-  background: var(--bg);
+  background: radial-gradient(circle at 15% 15%, #f5fbe9 0 12%, transparent 30%), radial-gradient(circle at 85% 80%, #e3f3d6 0 10%, transparent 28%), var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2105,9 +2125,10 @@ textarea.form-textarea:focus {
 .login-card {
   width: 100%;
   max-width: 380px;
-  background: var(--card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(117, 167, 73, 0.16);
+  border-radius: 26px;
+  box-shadow: 0 24px 55px -28px rgba(45, 106, 31, 0.45);
   overflow: hidden;
   position: relative;
   z-index: 1;

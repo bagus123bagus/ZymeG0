@@ -21,18 +21,12 @@ export default function Beranda({ setPage, totalPoin, totalKg, userName, userEma
     <section className="view active" data-view="beranda">
       {/* Greeting */}
       <div className="greeting-wrap">
-        <svg className="leaf-deco" viewBox="0 0 150 120" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M140 10 q-30 5-45 25 q20-5 40 0 q-25 5-35 25 q18-2 30 6 q-20 4-25 18"
-            stroke="#79b34a"
-            strokeWidth="4"
-            fill="none"
-            strokeLinecap="round"
-            opacity="0.55"
-          />
-          <ellipse cx="118" cy="22" rx="9" ry="5" fill="#8fc25f" opacity="0.7" transform="rotate(30 118 22)" />
-          <ellipse cx="100" cy="42" rx="9" ry="5" fill="#79b34a" opacity="0.6" transform="rotate(-10 100 42)" />
-          <ellipse cx="112" cy="60" rx="8" ry="4.5" fill="#8fc25f" opacity="0.55" transform="rotate(20 112 60)" />
+        <svg className="leaf-deco" viewBox="0 0 150 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M142 10C112 19 93 36 87 67" stroke="#5b9c36" strokeWidth="3" strokeLinecap="round" fill="none" />
+          <path d="M116 27C101 19 91 20 82 25C94 34 105 35 116 27Z" fill="#8fc25f" />
+          <path d="M103 45C88 38 77 41 69 49C82 54 93 53 103 45Z" fill="#72b34b" />
+          <path d="M98 64C84 59 75 63 68 72C80 76 91 73 98 64Z" fill="#a4d477" />
+          <circle cx="124" cy="18" r="4" fill="#f1b33b" opacity="0.8" />
         </svg>
         <h1>
           Halo, {userName} <span className="wave">👋</span>
@@ -124,7 +118,8 @@ export default function Beranda({ setPage, totalPoin, totalKg, userName, userEma
           <path d="M50 65 L55 75 L48 75 L52 85 M65 65 L60 75 L68 75 L64 85" stroke="#fff" strokeWidth="2.5" fill="none" strokeLinecap="round" />
           <circle cx="30" cy="40" r="10" fill="#f4a020" />
           <path d="M30 32 Q32 27 35 26" stroke="#2d6a1f" strokeWidth="2" fill="none" strokeLinecap="round" />
-          <circle cx="90" cy="35" r="8" fill="#6ab52a" />
+          <path d="M88 34c8-9 17-7 21 1-8 5-15 5-21-1Z" fill="#8fc25f" />
+          <path d="M93 31c-2-7 2-12 8-14 2 7-1 12-8 14Z" fill="#4a9a2a" />
         </svg>
       </div>
 

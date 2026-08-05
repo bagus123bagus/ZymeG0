@@ -19,7 +19,7 @@ export default function SetorLimbah({ onSaved }: Props) {
   const [error, setError] = useState<string | null>(null);
 
   const beratNum = parseFloat(berat) || 0;
-  const poin = Math.round(beratNum * 10);
+  const poin = Math.max(1, Math.round(beratNum));
   const harga = Math.round(beratNum * 500);
 
   async function handleSubmit(e: FormEvent) {
@@ -172,6 +172,7 @@ export default function SetorLimbah({ onSaved }: Props) {
         {/* Estimate */}
         <div className="estimate-box">
           <span className="label">
+            <small>1 kg = 1 poin</small>
             <i className="fa-solid fa-calculator" style={{ marginRight: '0.3rem' }} />
             Estimasi Poin Didapat
           </span>
