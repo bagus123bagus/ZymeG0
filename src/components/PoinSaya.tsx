@@ -4,15 +4,17 @@ import { useAuth } from '../lib/auth';
 
 // Map reward names to their image files (place files in /public/)
 const rewardImages: Record<string, string> = {
-  'Sabun Cuci Piring': 'https://images.pexels.com/photos/10574054/pexels-photo-10574054.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
-  'Cairan Pel Lantai': 'https://images.pexels.com/photos/5217898/pexels-photo-5217898.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
-  'Pupuk Cair Organik': 'https://images.pexels.com/photos/7768447/pexels-photo-7768447.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
+  'Voucher Belanja ZymeGo Rp5.000': 'https://images.pexels.com/photos/3631685/pexels-photo-3631685.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
+  'Cairan Pel Lantai': 'https://images.pexels.com/photos/12997254/pexels-photo-12997254.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
+  'Sabun Cuci Piring': 'https://images.pexels.com/photos/12997255/pexels-photo-12997255.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
+  'Pupuk Cair Organik': 'https://images.pexels.com/photos/11730662/pexels-photo-11730662.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
 };
 
 const rewardIcons: Record<string, string> = {
   'Sabun Cuci Piring': 'fa-hand-sparkles',
   'Cairan Pel Lantai': 'fa-bucket',
   'Pupuk Cair Organik': 'fa-seedling',
+  'Voucher Belanja ZymeGo Rp5.000': 'fa-ticket',
 };
 
 interface Props {

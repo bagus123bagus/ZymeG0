@@ -3,11 +3,13 @@ import { useAuth } from '../lib/auth';
 import logoImg from './image.png';
 
 type Mode = 'login' | 'daftar';
+type LoginMethod = 'email' | 'phone';
 
 export default function AuthScreen() {
   const { signIn, signUp } = useAuth();
   const [mode, setMode] = useState<Mode>('login');
   const [email, setEmail] = useState('');
+  const [loginMethod, setLoginMethod] = useState<LoginMethod>('email');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
@@ -22,7 +24,8 @@ export default function AuthScreen() {
     setSuccessMsg(null);
     setSubmitting(true);
     if (mode === 'login') {
-      const { error: err } = await signIn(email.trim(), password);
+      const identifier = loginMethod === 'email' ? email.trim() : phone.trim();
+      const { error: err } = await signIn(identifier, password, loginMethod);
       setSubmitting(false);
       if (err) setError(err);
     } else {
@@ -85,6 +88,17 @@ export default function AuthScreen() {
           </button>
         </div>
 
+        {mode === 'login' && (
+          <div className="login-method-switch" role="tablist" aria-label="Metode masuk">
+            <button type="button" className={loginMethod === 'email' ? 'active' : ''} onClick={() => setLoginMethod('email')}>
+              <i className="fa-solid fa-envelope" /> Email
+            </button>
+            <button type="button" className={loginMethod === 'phone' ? 'active' : ''} onClick={() => setLoginMethod('phone')}>
+              <i className="fa-solid fa-phone" /> Nomor HP
+            </button>
+          </div>
+        )}
+
         <form className="login-form" onSubmit={handleSubmit}>
           {mode === 'daftar' && (
             <>
@@ -115,19 +129,35 @@ export default function AuthScreen() {
             </>
           )}
 
-          <div className="login-field">
-            <label>Email</label>
-            <div className="login-input-wrap">
-              <i className="fa-solid fa-envelope" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Masukkan alamat email"
-                required
-              />
+          {mode === 'daftar' || loginMethod === 'email' ? (
+            <div className="login-field">
+              <label>Email</label>
+              <div className="login-input-wrap">
+                <i className="fa-solid fa-envelope" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Masukkan alamat email"
+                  required
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="login-field">
+              <label>Nomor HP</label>
+              <div className="login-input-wrap">
+                <i className="fa-solid fa-phone" />
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Contoh: 08123456789"
+                  required
+                />
+              </div>
+            </div>
+          )}
 
           <div className="login-field">
             <label>Password</label>

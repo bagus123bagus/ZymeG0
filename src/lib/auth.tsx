@@ -10,7 +10,7 @@ interface AuthState {
   profile: Profile | null;
   loading: boolean;
   isAdmin: boolean;
-  signIn: (email: string, password: string) => Promise<{ error: string | null }>;
+  signIn: (identifier: string, password: string, method: 'email' | 'phone') => Promise<{ error: string | null }>; 
   signUp: (email: string, password: string, fullName: string, phone?: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -68,8 +68,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  async function signIn(email: string, password: string) {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+  async function signIn(identifier: string, password: string, method: 'email' | 'phone') {
+    const credentials = method === 'phone'
+      ? { phone: identifier, password }
+      : { email: identifier, password };
+    const { error } = await supabase.auth.signInWithPassword(credentials);
     return { error: error?.message ?? null };
   }
 
