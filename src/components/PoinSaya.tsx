@@ -4,7 +4,6 @@ import { useAuth } from '../lib/auth';
 
 // Map reward names to their image files (place files in /public/)
 const rewardImages: Record<string, string> = {
-  'Voucher Belanja ZymeGo Rp5.000': 'https://images.pexels.com/photos/3631685/pexels-photo-3631685.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
   'Cairan Pel Lantai': 'https://images.pexels.com/photos/12997254/pexels-photo-12997254.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
   'Sabun Cuci Piring': 'https://images.pexels.com/photos/12997255/pexels-photo-12997255.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
   'Pupuk Cair Organik': 'https://images.pexels.com/photos/11730662/pexels-photo-11730662.jpeg?auto=compress&cs=tinysrgb&h=400&w=400',
@@ -75,6 +74,15 @@ export default function PoinSaya({ totalPoin, deposits, redemptions, onRedeemed 
 
   function RewardImg({ nama, size = 56 }: { nama: string; size?: number }) {
     const [imgErr, setImgErr] = useState(false);
+    if (nama === 'Voucher Belanja ZymeGo Rp5.000') {
+      return (
+        <div className="voucher-logo" aria-label="Logo voucher ZymeGo">
+          <span className="voucher-logo-mark"><i className="fa-solid fa-leaf" /></span>
+          <span className="voucher-logo-word">Zyme<span>Go</span></span>
+          <small>VOUCHER</small>
+        </div>
+      );
+    }
     const src = rewardImages[nama];
     if (src && !imgErr) {
       return (

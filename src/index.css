@@ -2363,7 +2363,73 @@ textarea.form-textarea:focus {
 .login-illustration {
   margin-top: 1.5rem;
   width: 100%;
-  max-width: 280px;
+  max-width: 320px;
+  position: relative;
+  z-index: 1;
+}
+.login-illustration svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.optional-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-left: 0.3rem;
+}
+.login-info-box { display: none; }
+
+.voucher-logo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  background: linear-gradient(135deg, #2f6b1f 0%, #4c8a1f 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.4rem;
+  position: relative;
+  overflow: hidden;
+}
+.voucher-logo::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0 8px, transparent 8px 16px);
+}
+.voucher-logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  position: relative;
+  z-index: 1;
+}
+.voucher-logo-word {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+}
+.voucher-logo-word span { color: #ffd35c; }
+.voucher-logo small {
+  font-size: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  opacity: 0.85;
   position: relative;
   z-index: 1;
 }

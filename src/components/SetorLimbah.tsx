@@ -172,7 +172,6 @@ export default function SetorLimbah({ onSaved }: Props) {
         {/* Estimate */}
         <div className="estimate-box">
           <span className="label">
-            <small>1 kg = 1 poin</small>
             <i className="fa-solid fa-calculator" style={{ marginRight: '0.3rem' }} />
             Estimasi Poin Didapat
           </span>

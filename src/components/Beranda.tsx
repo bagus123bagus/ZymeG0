@@ -111,15 +111,20 @@ export default function Beranda({ setPage, totalPoin, totalKg, userName, userEma
             Setor Sekarang <i className="fa-solid fa-chevron-right" />
           </button>
         </div>
-        <svg viewBox="0 0 120 120" width="38%" style={{ maxWidth: 150, flexShrink: 0 }}>
-          <ellipse cx="60" cy="100" rx="40" ry="6" fill="#4a9a2a" opacity="0.2" />
-          <rect x="35" y="50" width="50" height="50" rx="8" fill="#4a9a2a" />
-          <rect x="30" y="42" width="60" height="10" rx="5" fill="#2d6a1f" />
-          <path d="M50 65 L55 75 L48 75 L52 85 M65 65 L60 75 L68 75 L64 85" stroke="#fff" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-          <circle cx="30" cy="40" r="10" fill="#f4a020" />
-          <path d="M30 32 Q32 27 35 26" stroke="#2d6a1f" strokeWidth="2" fill="none" strokeLinecap="round" />
-          <path d="M88 34c8-9 17-7 21 1-8 5-15 5-21-1Z" fill="#8fc25f" />
-          <path d="M93 31c-2-7 2-12 8-14 2 7-1 12-8 14Z" fill="#4a9a2a" />
+        <svg viewBox="0 0 130 130" width="38%" style={{ maxWidth: 150, flexShrink: 0 }}>
+          <ellipse cx="65" cy="116" rx="42" ry="6" fill="#2f6b1f" opacity="0.15" />
+          <path d="M30 58C20 48 22 34 34 30C36 42 38 50 42 56" stroke="#5b9c36" strokeWidth="5" strokeLinecap="round" fill="none" />
+          <path d="M34 30C30 24 33 16 40 14C42 22 40 28 34 30Z" fill="#79b34a" />
+          <path d="M100 60C110 50 108 36 96 32C94 44 92 52 88 58" stroke="#5b9c36" strokeWidth="5" strokeLinecap="round" fill="none" />
+          <path d="M96 32C100 26 97 18 90 16C88 24 90 30 96 32Z" fill="#79b34a" />
+          <rect x="38" y="52" width="54" height="58" rx="10" fill="#3f861f" />
+          <rect x="33" y="46" width="64" height="10" rx="5" fill="#245d13" />
+          <rect x="56" y="38" width="18" height="8" rx="4" fill="#245d13" />
+          <path d="M48 64V104M65 64V104M82 64V104" stroke="#8fc25f" strokeWidth="4" strokeLinecap="round" opacity="0.75" />
+          <circle cx="65" cy="82" r="18" fill="#2f6b1f" stroke="#8fc25f" strokeWidth="2.5" />
+          <path d="M65 68C58 68 54 73 54 79M53 78L47 77L51 83M76 79C76 85 71 89 65 89M74 90L80 91L76 85" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <circle cx="28" cy="70" r="5" fill="#f0a83b" />
+          <circle cx="102" cy="74" r="4" fill="#f0a83b" />
         </svg>
       </div>
 

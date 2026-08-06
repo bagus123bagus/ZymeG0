@@ -34,12 +34,17 @@ export default function AuthScreen() {
         setSubmitting(false);
         return;
       }
+      if (!phone.trim()) {
+        setError('Nomor telepon wajib diisi.');
+        setSubmitting(false);
+        return;
+      }
       const { error: err } = await signUp(email.trim(), password, fullName.trim(), phone.trim());
       setSubmitting(false);
       if (err) {
         setError(err);
       } else {
-        setSuccessMsg('Akun berhasil dibuat! Cek email kamu untuk verifikasi OTP, lalu login.');
+        setSuccessMsg('Akun berhasil dibuat! Silakan login dengan data akun kamu.');
         setMode('login');
       }
     }
@@ -123,6 +128,7 @@ export default function AuthScreen() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Contoh: 08123456789"
+                    required
                   />
                 </div>
               </div>
@@ -131,15 +137,15 @@ export default function AuthScreen() {
 
           {mode === 'daftar' || loginMethod === 'email' ? (
             <div className="login-field">
-              <label>Email</label>
+              <label>Email <span className="optional-label">(opsional)</span></label>
               <div className="login-input-wrap">
                 <i className="fa-solid fa-envelope" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Masukkan alamat email"
-                  required
+                  placeholder="Boleh dikosongkan"
+                  required={mode === 'login'}
                 />
               </div>
             </div>
@@ -176,13 +182,6 @@ export default function AuthScreen() {
             </div>
           </div>
 
-          {mode === 'daftar' && (
-            <div className="login-info-box">
-              <i className="fa-solid fa-circle-info" />
-              <span>Kami akan mengirim kode verifikasi ke email kamu. Pastikan email yang dimasukkan aktif.</span>
-            </div>
-          )}
-
           {mode === 'login' && (
             <button type="button" className="login-forgot">
               Lupa Password?
@@ -206,23 +205,23 @@ export default function AuthScreen() {
         </form>
       </div>
 
-      {/* Illustration */}
-      <svg className="login-illustration" viewBox="0 0 300 200" fill="none">
-        <ellipse cx="150" cy="180" rx="120" ry="12" fill="#6ea832" opacity="0.2" />
-        <path d="M150 170 Q90 140 80 80 Q110 100 140 90 Q120 130 150 170Z" fill="#4a9a2a" />
-        <path d="M150 170 Q90 140 80 80 Q110 100 140 90" stroke="#2d6a1f" strokeWidth="1.5" fill="none" />
-        <path d="M180 175 Q220 150 230 110 Q205 125 185 120 Q200 145 180 175Z" fill="#6ea832" />
-        <rect x="125" y="120" width="50" height="50" rx="6" fill="#3a7a1a" />
-        <rect x="120" y="115" width="60" height="8" rx="4" fill="#2d6a1f" />
-        <path d="M140 130 L145 140 L138 140 L142 150 M155 130 L150 140 L158 140 L154 150" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <circle cx="100" cy="140" r="10" fill="#f4a020" />
-        <path d="M100 130 Q102 125 105 124" stroke="#2d6a1f" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <path d="M210 145 L225 145 L220 165 Z" fill="#f4a020" />
-        <path d="M212 145 Q215 138 218 140 M220 145 Q224 138 222 142" stroke="#4a9a2a" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <circle cx="60" cy="60" r="2" fill="#8acc40" />
-        <circle cx="240" cy="50" r="2.5" fill="#8acc40" />
-        <circle cx="200" cy="80" r="1.5" fill="#6ea832" />
-      </svg>
+      <div className="login-illustration" aria-hidden="true">
+        <svg viewBox="0 0 320 180" fill="none">
+          <ellipse cx="160" cy="164" rx="92" ry="10" fill="#2f6b1f" opacity="0.14" />
+          <path d="M58 145C40 122 46 94 72 80C70 106 80 121 96 132" stroke="#5b9c36" strokeWidth="7" strokeLinecap="round" />
+          <path d="M264 145C282 122 276 94 250 80C252 106 242 121 226 132" stroke="#5b9c36" strokeWidth="7" strokeLinecap="round" />
+          <path d="M66 91C50 82 49 65 59 54C75 62 78 78 66 91Z" fill="#79b34a" />
+          <path d="M254 91C270 82 271 65 261 54C245 62 242 78 254 91Z" fill="#79b34a" />
+          <rect x="103" y="62" width="114" height="94" rx="20" fill="#3f861f" />
+          <rect x="94" y="52" width="132" height="18" rx="9" fill="#245d13" />
+          <rect x="142" y="40" width="36" height="13" rx="6.5" fill="#245d13" />
+          <path d="M129 86V132M160 86V132M191 86V132" stroke="#8fc25f" strokeWidth="5" strokeLinecap="round" opacity="0.8" />
+          <circle cx="160" cy="110" r="25" fill="#2f6b1f" stroke="#8fc25f" strokeWidth="3" />
+          <path d="M160 91C151 91 146 97 146 104M145 103L137 102L142 110M175 104C175 113 168 119 160 119M173 120L181 121L176 113" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="91" cy="40" r="4" fill="#f0a83b" />
+          <circle cx="232" cy="30" r="3" fill="#f0a83b" />
+        </svg>
+      </div>
 
       {/* Footer */}
       <div className="login-footer">
